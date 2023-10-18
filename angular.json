@@ -8,6 +8,15 @@
       "sourceRoot": "projects/ngx-mat-intl-tel-input/src",
       "projectType": "library",
       "prefix": "lib",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": true
+        },
+        "@schematics/angular:application": {
+          "strict": true
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -24,20 +33,20 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-mat-intl-tel-input/src/test.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "projects/ngx-mat-intl-tel-input/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-mat-intl-tel-input/karma.conf.js"
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ngx-mat-intl-tel-input/tsconfig.lib.json",
-              "projects/ngx-mat-intl-tel-input/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ngx-mat-intl-tel-input/**/*.ts",
+              "projects/ngx-mat-intl-tel-input/**/*.html"
             ]
           }
         }
@@ -65,7 +74,7 @@
             ],
             "styles": [
               "./node_modules/@angular/material/prebuilt-themes/indigo-pink.css",
-              "projects/ngx-mat-intl-tel-input-tester/src/styles.css"
+              "projects/ngx-mat-intl-tel-input-tester/src/styles.scss"
             ],
             "scripts": []
           },
@@ -118,8 +127,10 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/ngx-mat-intl-tel-input-tester/src/test.ts",
-            "polyfills": "projects/ngx-mat-intl-tel-input-tester/src/polyfills.ts",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ],
             "tsConfig": "projects/ngx-mat-intl-tel-input-tester/tsconfig.spec.json",
             "karmaConfig": "projects/ngx-mat-intl-tel-input-tester/karma.conf.js",
             "assets": [
@@ -127,21 +138,17 @@
               "projects/ngx-mat-intl-tel-input-tester/src/assets"
             ],
             "styles": [
-              "projects/ngx-mat-intl-tel-input-tester/src/styles.css"
+              "projects/ngx-mat-intl-tel-input-tester/src/styles.scss"
             ],
             "scripts": []
           }
         },
         "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
+          "builder": "@angular-eslint/builder:lint",
           "options": {
-            "tsConfig": [
-              "projects/ngx-mat-intl-tel-input-tester/tsconfig.app.json",
-              "projects/ngx-mat-intl-tel-input-tester/tsconfig.spec.json",
-              "projects/ngx-mat-intl-tel-input-tester/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
+            "lintFilePatterns": [
+              "projects/ngx-mat-intl-tel-input-tester//**/*.ts",
+              "projects/ngx-mat-intl-tel-input-tester//**/*.html"
             ]
           }
         },
@@ -160,8 +167,10 @@
       }
     }
   },
-  "defaultProject": "ngx-mat-intl-tel-input",
   "cli": {
-    "analytics": "0654a805-fd21-4645-8163-bc32cba8a88b"
+    "schematicCollections": [
+      "@angular-eslint/schematics"
+    ],
+    "analytics": false
   }
 }
